@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .pointer {
+      cursor: pointer;
+      width: 80px;
+    }
+    .main-img {
+      max-width: 70%;
+    }
+    .small-img {
+      max-width: 80px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .price-container {
+      display: flex;
+      align-items: center;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+    .cart-box {
+      position: absolute;
+      width: 400px;
+      box-shadow: 2px 10px 10px 2px;
+      padding: 20px;
+      background-color: white;
+      right: 50px;
+      top: 50px;
+      display: none;
+    }
+  </style>
+
+  <title>Product Page</title>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-md bg-transparent p-3">
+      <div class="container">
+        <a href="#" class="navbar-brand pointer"><img src="images/logo.svg" alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav gap-4 ms-5">
+            <li class="nav-item"><a href="#" class="nav-link fw-bold pointer">Collections</a></li>
+            <li class="nav-item"><a href="#" class="nav-link fw-bold pointer">Men</a></li>
+            <li class="nav-item"><a href="#" class="nav-link fw-bold pointer">Women</a></li>
+            <li class="nav-item"><a href="#" class="nav-link  fw-bold pointer">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link  fw-bold pointer">Contact</a></li>
+          </ul>
+          <div class="ms-auto d-flex align-items-center gap-3">
+            <img src="images/icon-cart.svg" alt="Cart" class="cart-icon pointer">
+            <img src="images/image-avatar.png" class="img-fluid rounded-circle pointer" alt="Avatar" width="40">
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row align-items-center mt-4">
+      <div class="col-lg-6 text-center">
+        <img src="images/image-product-1.jpg" class="main-img border" id="mainImage">
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <img src="images/image-product-1-thumbnail.jpg" class="small-img" onclick="changeImage('images/image-product-1.jpg')">
+          <img src="images/image-product-2-thumbnail.jpg" class="small-img" onclick="changeImage('images/image-product-2.jpg')">
+          <img src="images/image-product-3-thumbnail.jpg" class="small-img" onclick="changeImage('images/image-product-3.jpg')">
+          <img src="images/image-product-4-thumbnail.jpg" class="small-img" onclick="changeImage('images/image-product-4.jpg')">
+        </div>
+      </div>
+      <div class="col-lg-6 ps-5"style="margin-top:-100px;">
+        <p class="text-secondary fw-bold mt-2">Sneaker Company</p>
+        <h1 class="fw-bold product-title">Fall Limited Edition Sneakers</h1>
+       
+        <div class="price-container mt-3">
+          <h1 class="fw-bold">$125.00</h1>
+        </div>
+        <h5 class="text-secondary"><span>$250.00</span></h5>
+
+        <div class="d-flex gap-3 mt-4">
+          <div class="d-flex align-items-center bg-light border rounded px-3 py-2">
+            <button id="minus" class="btn p-0 fs-4 pointer">−</button>
+            <span id="counter" class="mx-2 fs-4">0</span>
+            <button id="plus" class="btn p-0 fs-4 pointer">+</button>
+          </div>
+          <button id="addToCart" class="btn btn-warning w-70 pointer">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cart-box" id="cartBox">
+    <h3>Cart</h3>
+    <hr>
+    <div id="cartContent"></div>
+  </div>
+
+  <script>
+    let count = 0;
+    document.getElementById('plus').addEventListener('click', () => {
+      count++;
+      document.getElementById('counter').textContent = count;
+    });
+
+    document.getElementById('minus').addEventListener('click', () => {
+      if (count > 0) {
+        count--;
+        document.getElementById('counter').textContent = count;
+      }
+    });
+
+    document.getElementById('addToCart').addEventListener('click', () => {
+      if (count > 0) {
+        document.getElementById('cartBox').style.display = 'block';
+        document.getElementById('cartContent').innerHTML = `
+          <div class="d-flex align-items-center">
+            <img src="images/image-product-1-thumbnail.jpg" class="small-img me-2">
+            <p>Fall Limited Edition Sneakers <br> $125.00 x ${count} <strong>$${125 * count}</strong></p>
+          </div>
+        `;
+      }
+    });
+
+    function changeImage(imgSrc) {
+      document.getElementById('mainImage').src = imgSrc;
+  }
+
+ 
+  </script>
+</body>
+</html>
